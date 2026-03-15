@@ -367,6 +367,15 @@ def complete_upload_form(
         _set_cover(page, cover_path)
     if not skip_split_window:
         _remove_split_window(page)
+    try:
+        # Dismiss joyride spotlight overlay if it appears
+        joyride_spotlight = page.locator("div.react-joyride__spotlight")
+        logger.debug(green("Finding joyride_spotlight to skip"))
+        if joyride_spotlight.is_visible(timeout=1000):
+            logger.debug(green("Skipping joyride_spotlight to skip"))
+            joyride_spotlight.click()
+    except Exception:
+        pass
     _set_interactivity(page, **kwargs)
     _set_description(page, description)
     if visibility != "everyone":
@@ -755,6 +764,15 @@ def _post_video(page: Page) -> None:
     Posts the video
     """
     logger.debug(green("Clicking the post button"))
+
+    try:
+        overlay = page.locator("div.TUXModal-overlay")
+        if overlay.is_visible(timeout=1000):
+            close_btn = page.locator("div.jsx-2910096029.common-modal-close")
+            if close_btn.is_visible(timeout=1000):
+                close_btn.click()
+    except Exception:
+        pass
 
     post_btn = page.locator(f"xpath={config.selectors.upload.post}")
     try:

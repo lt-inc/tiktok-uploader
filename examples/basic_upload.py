@@ -1,20 +1,17 @@
 """Gets a video from the internet and uploads it"""
 
-import urllib.request
+from random import choice
+from matplotlib.pylab import choice
 
 from tiktok_uploader.upload import TikTokUploader
 
-URL = "https://raw.githubusercontent.com/wkaisertexas/wkaisertexas.github.io/main/upload.mp4"
-FILENAME = "upload.mp4"
 
 if __name__ == "__main__":
-    # download random video
-    urllib.request.urlretrieve(URL, FILENAME)
+    BROWSERS = [
+    'chrome',
+]
 
-    # upload video to TikTok
-    uploader = TikTokUploader(cookies="cookies.txt")
+# single video
+uploader = TikTokUploader(cookies='www.tiktok.com_cookies.txt', browser=choice(BROWSERS), headless=False)
+uploader.upload_video('newVideo123.mp4', description='#fyp #foryou #rec #viral #trending #funny #comedy #memes #tiktok #minecraft')
 
-    uploader.upload_video(
-        FILENAME,
-        description="This is a #cool video I just downloaded. #wow #cool check it out on @tiktok",
-    )
