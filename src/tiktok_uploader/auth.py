@@ -4,7 +4,7 @@ from http import cookiejar
 from time import sleep, time
 from typing import Any, cast
 
-from playwright.sync_api import Page, expect
+from patchright.sync_api import Page, expect
 
 from tiktok_uploader import config, logger
 from tiktok_uploader.browsers import get_browser
@@ -41,7 +41,7 @@ class AuthBackend:
         - username -> the accounts's username or email
         - password -> the account's password
 
-        - cookies -> a list of cookie dictionaries of cookies which is Playwright-compatible
+        - cookies -> a list of cookie dictionaries compatible with Patchright/Playwright
         """
         if (username and not password) or (password and not username):
             raise InsufficientAuth()
@@ -87,18 +87,18 @@ class AuthBackend:
 
         logger.debug(green("Authenticating browser with cookies"))
 
-        # Fix cookie keys for Playwright
+        # Fix cookie keys for Patchright (same cookie format as Playwright)
         playwright_cookies = []
         for cookie in self.cookies:
             c = cookie.copy()
             if "expiry" in c:
                 c["expires"] = c.pop("expiry")
-            # Playwright requires strict types for sameSite
+            # Patchright/Playwright requires strict types for sameSite
             if "sameSite" in c:
                 if c["sameSite"] not in ["Strict", "Lax", "None"]:
                     c.pop("sameSite")
 
-            # Playwright might fail if domain starts with a dot
+            # Patchright might fail if domain starts with a dot
             # if c.get("domain", "").startswith("."):
             #     c["domain"] = c["domain"][1:]
 
@@ -217,7 +217,7 @@ def login_accounts(
     Authenticates the accounts using the browser backend and saves the required credentials
 
     Keyword arguments:
-    - page -> the playwright page to use
+    - page -> the patchright page to use
     - accounts -> a list of tuples of the form (username, password)
     """
     page = page or get_browser(*args, **kwargs)
@@ -273,7 +273,7 @@ def login(page: Page, username: str, password: str) -> list[Cookie]:
     print(f"Complete the captcha for {username}")
 
     # Wait until the session id cookie is set
-    # Playwright doesn't have a direct "wait for cookie" so we poll or wait for navigation
+    # Patchright doesn't have a direct "wait for cookie" so we poll or wait for navigation
     start_time = time()
     while True:
         cookies = page.context.cookies()

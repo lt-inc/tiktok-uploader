@@ -2,9 +2,9 @@
 
 from typing import Any, Literal
 
-from playwright.sync_api import Page, sync_playwright
+from patchright.sync_api import Page, sync_playwright
 
-from tiktok_uploader import config
+from tiktok_uploader import config, logger
 from tiktok_uploader.types import ProxyDict
 
 # Type alias for supported browsers
@@ -23,13 +23,15 @@ def get_browser(
     """
     p = sync_playwright().start()
 
-    # Map browser names to Playwright launch functions
+    # Patchright is chromium-focused; fallback unsupported engines to chromium.
     if name == "chrome" or name == "edge" or name == "chromium":
         browser_type = p.chromium
     elif name == "firefox":
-        browser_type = p.firefox
+        logger.warning("Patchright does not support Firefox; falling back to Chromium.")
+        browser_type = p.chromium
     elif name == "webkit" or name == "safari":
-        browser_type = p.webkit
+        logger.warning("Patchright does not support WebKit/Safari; falling back to Chromium.")
+        browser_type = p.chromium
     else:
         browser_type = p.chromium  # Default to chromium
 

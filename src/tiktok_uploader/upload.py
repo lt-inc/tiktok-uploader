@@ -14,8 +14,8 @@ from os.path import abspath, exists
 from typing import Any, Literal
 
 import pytz
-from playwright.sync_api import Page
-from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
+from patchright.sync_api import Page
+from patchright.sync_api import TimeoutError as PatchrightTimeoutError
 
 from tiktok_uploader import config
 from tiktok_uploader.auth import AuthBackend
@@ -521,7 +521,7 @@ def _set_video(page: Page, path: str = "", num_retries: int = 3, **kwargs) -> No
                 state="attached", timeout=config.explicit_wait * 1000
             )
             return
-        except PlaywrightTimeoutError as exception:
+        except PatchrightTimeoutError as exception:
             print("TimeoutException occurred:\n", exception)
         except Exception as exception:
             print(exception)
@@ -559,7 +559,7 @@ def _remove_split_window(page: Page) -> None:
         window = page.locator(f"xpath={window_xpath}")
         if window.is_visible(timeout=config.implicit_wait * 1000):
             window.click()
-    except PlaywrightTimeoutError:
+    except PatchrightTimeoutError:
         logger.debug(red("Split window not found or operation timed out"))
 
 

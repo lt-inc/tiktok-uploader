@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center"> ⬆️ TikTok Uploader </h1>
-<p align="center">A <strong>Playwright</strong>-based automated <strong>TikTok</strong> video uploader</p>
+<p align="center">A <strong>Patchright</strong>-based automated <strong>TikTok</strong> video uploader</p>
 
 <p align="center">
   <img alt="Forks" src="https://img.shields.io/github/forks/wkaisertexas/tiktok-uploader" />
@@ -35,7 +35,7 @@
 
 # Installation
 
-A prerequisite to using this program is the installation of [Playwright](https://playwright.dev/) browsers.
+A prerequisite to using this program is the installation of [Patchright](https://pypi.org/project/patchright/) Chromium/Chrome browsers.
 
 <h2 id="macos-windows-and-linux">MacOS, Windows and Linux</h2>
 
@@ -47,7 +47,7 @@ Install `tiktok-uploader` using `pip`
 
 ```bash
 pip install tiktok-uploader
-playwright install
+patchright install chromium
 ```
 
 <h3 id="building-from-source">Building from source</h3>
@@ -66,7 +66,7 @@ Next, clone the repository using `git`. Then change directories and run the proj
 git clone https://github.com/wkaisertexas/tiktok-uploader
 cd tiktok-uploader
 uv sync
-uv run playwright install
+uv run patchright install chromium
 uv run tiktok-uploader
 ```
 
@@ -251,7 +251,7 @@ uploader.upload_videos(videos=videos)
 
 <h2 id="authentication"> 🔐 Authentication</h2>
 
-Authentication uses your browser's cookies. This workaround was done due to TikTok's stricter stance on authentication by a Playwright-controlled browser.
+Authentication uses your browser's cookies. This workaround was done due to TikTok's stricter stance on authentication by an automation-controlled browser.
 
 Your `sessionid` is all that is required for authentication and can be passed as an argument to nearly any function
 
@@ -338,10 +338,10 @@ uploader.upload_video(...)
 
 <h2 id="initial-setup"> 🔨 Initial Setup</h2>
 
-You must install Playwright browsers:
+You must install Patchright browser binaries:
 
 ```bash
-playwright install
+patchright install chromium
 ```
 
 <h2 id="examples"> ♻ Examples</h2>

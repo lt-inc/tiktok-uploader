@@ -56,7 +56,7 @@ def get_uploader_args() -> Namespace:
     """
     parser = ArgumentParser(
         description="TikTok uploader is a video uploader which can upload a"
-        + "video from your computer to the TikTok using playwright automation"
+        + "video from your computer to the TikTok using patchright automation"
     )
 
     # primary arguments
@@ -93,7 +93,7 @@ def get_uploader_args() -> Namespace:
     parser.add_argument("-u", "--username", help="Your TikTok email / username")
     parser.add_argument("-p", "--password", help="Your TikTok password")
 
-    # playwright arguments
+    # browser automation arguments
     parser.add_argument(
         "--attach",
         "-a",

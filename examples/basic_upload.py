@@ -11,6 +11,6 @@ if __name__ == "__main__":
 ]
 
 # single video
-uploader = TikTokUploader(cookies='www.tiktok.com_cookies.txt', browser="chrome", headless=False)
+uploader = TikTokUploader(cookies='www.tiktok.com_cookies.txt', browser="chrome", headless=True)
 uploader.upload_video('0.mp4', description='#fyp')
 
